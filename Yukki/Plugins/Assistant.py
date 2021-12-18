@@ -174,17 +174,14 @@ async def set_pfp(_, message):
     & ~filters.via_bot
 )
 async def set_bio(_, message):
-    if len(message.command) == 1:
-        return await eor(message , text="Give some text to set as bio.") 
-    elif len(message.command) > 1:
-        bio = message.text.split(None, 1)[1]
-        try: 
-            await userbot.update_profile(bio=bio) 
-            await eor(message , text="Changed Bio.") 
-        except Exception as e:
-            await eor(message , text=e) 
-    else:
-        return await eor(message , text="Give some text to set as bio.") 
+    if len(message.command) == 1 or len(message.command) <= 1:
+        return await eor(message , text="Give some text to set as bio.")
+    bio = message.text.split(None, 1)[1]
+    try: 
+        await userbot.update_profile(bio=bio) 
+        await eor(message , text="Changed Bio.") 
+    except Exception as e:
+        await eor(message , text=e) 
 
 flood2 = {}
 
@@ -237,7 +234,7 @@ async def pmpermit_cq(_, cq):
         async for m in userbot.iter_history(user_id, limit=6):
             if m.reply_markup:
                 await m.delete()
-        await userbot.send_message(user_id, f"Blocked, No Promotions.")
+        await userbot.send_message(user_id, 'Blocked, No Promotions.')
         await userbot.send_message(
             LOG_GROUP_ID,
             f"**Promotion Block On Assistant**\n\n- **Blocked User:** {cq.from_user.mention}\n- **User ID:** {user_id}",
@@ -279,16 +276,15 @@ async def pmpermit_func(answers, user_id, victim):
             ],
             [
                 InlineKeyboardButton(
-                    text="To Scam You",
-                    callback_data=f"pmpermit to_scam_you a",
+                    text="To Scam You", callback_data='pmpermit to_scam_you a'
                 ),
                 InlineKeyboardButton(
-                    text="For Promotion", callback_data=f"pmpermit for_pro a"
+                    text="For Promotion", callback_data='pmpermit for_pro a'
                 ),
             ],
             [
                 InlineKeyboardButton(
-                    text="Approve me", callback_data=f"pmpermit approve_me a"
+                    text="Approve me", callback_data='pmpermit approve_me a'
                 ),
                 InlineKeyboardButton(
                     text="Approve", callback_data=f"pmpermit approve {victim}"
@@ -301,6 +297,7 @@ async def pmpermit_func(answers, user_id, victim):
             ],
         ]
     )
+
     answers.append(
         InlineQueryResultArticle(
             title="do_not_click_here",
@@ -315,10 +312,10 @@ async def pmpermit_func(answers, user_id, victim):
 async def inline_query_handler(client, query):
     try:
         text = query.query.strip().lower()
-        answers = []
         if text.split()[0] == "permit_to_pm":
             user_id = query.from_user.id
             victim = text.split()[1]
+            answers = []
             answerss = await pmpermit_func(answers, user_id, victim)
             await client.answer_inline_query(
                 query.id, results=answerss, cache_time=2

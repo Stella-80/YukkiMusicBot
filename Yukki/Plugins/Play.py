@@ -146,9 +146,7 @@ async def startyuplay(_, CallbackQuery):
     chat_title = CallbackQuery.message.chat.title
     videoid, duration, user_id = callback_request.split("|")
     if str(duration) == "None":
-        return await CallbackQuery.answer(
-            f"Sorry! Its a Live Video.", show_alert=True
-        )
+        return await CallbackQuery.answer('Sorry! Its a Live Video.', show_alert=True)
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
             "This is not for you! Search You Own Song.", show_alert=True
@@ -289,10 +287,7 @@ async def slider_query_results(_, CallbackQuery):
     what = str(what)
     type = int(type)
     if what == "F":
-        if type == 9:
-            query_type = 0
-        else:
-            query_type = int(type + 1)
+        query_type = 0 if type == 9 else int(type + 1)
         await CallbackQuery.answer("Getting Next Result", show_alert=True)
         (
             title,
@@ -312,10 +307,7 @@ async def slider_query_results(_, CallbackQuery):
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
     if what == "B":
-        if type == 0:
-            query_type = 9
-        else:
-            query_type = int(type - 1)
+        query_type = 9 if type == 0 else int(type - 1)
         await CallbackQuery.answer("Getting Previous Result", show_alert=True)
         (
             title,

@@ -7,9 +7,7 @@ authdb = db.adminauth
 
 async def is_nonadmin_chat(user_id: int) -> bool:
     user = await authdb.find_one({"user_id": user_id})
-    if not user:
-        return False
-    return True
+    return bool(user)
 
 
 async def add_nonadmin_chat(user_id: int):

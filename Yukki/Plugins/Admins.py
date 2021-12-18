@@ -67,7 +67,7 @@ Only for Sudo Users
 @checker
 async def admins(_, message: Message):
     global get_queue
-    if not len(message.command) == 1:
+    if len(message.command) != 1:
         return await message.reply_text("Error! Wrong Usage of Command.")
     if not await is_active_chat(message.chat.id):
         return await message.reply_text("Nothing is playing on voice chat.")
@@ -88,7 +88,7 @@ async def admins(_, message: Message):
         await message.reply_text(
             f"🎧 Voicechat Resumed by {message.from_user.mention}!"
         )
-    if message.command[0][1] == "t" or message.command[0][1] == "n":
+    if message.command[0][1] in ["t", "n"]:
         try:
             Queues.clear(message.chat.id)
         except QueueEmpty:

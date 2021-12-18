@@ -89,7 +89,7 @@ async def initiate_bot():
         print(
             "Bot has failed to access the log Channel. Make sure that you have added your bot to your log channel and promoted as admin!"
         )
-        console.print(f"\n[red]Stopping Bot")
+        console.print('\n[red]Stopping Bot')
         return
     a = await app.get_chat_member(LOG_GROUP_ID, BOT_ID)
     if a.status != "administrator":
@@ -105,7 +105,7 @@ async def initiate_bot():
         print(
             "Assistant Account has failed to access the log Channel. Make sure that you have added your bot to your log channel and promoted as admin!"
         )
-        console.print(f"\n[red]Stopping Bot")
+        console.print('\n[red]Stopping Bot')
         return
     try:
         await userbot.join_chat("OfficialYukki")
@@ -116,7 +116,7 @@ async def initiate_bot():
     console.print(f"├[red] Assistant Started as {ASSNAME}!")
     console.print(f"└[green] ID :- {ASSID}!")
     await run()
-    console.print(f"\n[red]Stopping Bot")
+    console.print('\n[red]Stopping Bot')
 
 
 home_text_pm = f"""Hello ,
