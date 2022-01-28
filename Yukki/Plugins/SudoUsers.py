@@ -127,10 +127,10 @@ async def userdel(_, message: Message):
     await message.reply_text(f"Something wrong happened.")
 
 
-@app.on_message(filters.command("sudolist"))
+@app.on_message(filters.command("sudo"))
 async def sudoers_list(_, message: Message):
     sudoers = await get_sudoers()
-    text = "⭐️<u> **Owners:**</u>\n"
+    text = "Owners Of VexuMusic"
     sex = 0
     for x in OWNER_ID:
         try:
@@ -148,7 +148,7 @@ async def sudoers_list(_, message: Message):
                 user = user.first_name if not user.mention else user.mention
                 if smex == 0:
                     smex += 1
-                    text += "\n⭐️<u> **Sudo Users:**</u>\n"
+                    text += "Sudo User Of VexMusic"
                 sex += 1
                 text += f"{sex}➤ {user}\n"
             except Exception:
